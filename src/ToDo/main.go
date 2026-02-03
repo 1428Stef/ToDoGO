@@ -11,10 +11,12 @@ func main() {
 		fmt.Println("Please enter 'help' for all commands.")
 		return
 	}
-	
+
 	switch menu[1] {
 	case "add":
 		cmd.Add(menu[2])
+	case "list":
+		cmd.List()
 	case "help":
 		cmd.Help()
 	default:

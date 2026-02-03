@@ -9,10 +9,10 @@ import (
 )
 
 type Task struct {
-	Title string
-	Mark  bool
-	Date  string
-	ID int 
+	Title string `json:"title"`
+	Mark  bool	`json:"mark"`
+	Date  string `json:"date"`
+	ID int `json:"id"`
 }
 
 func Add(titleTask string) error{
@@ -38,11 +38,11 @@ func Add(titleTask string) error{
 
 	jsonMar, err := json.MarshalIndent(tasks, "", "  ")
 	if err != nil {
-    	return err
+		return err
 	}
 
 	if err := os.WriteFile("storage/storage.json", jsonMar, 0644); err != nil {
-    	return err
+		return err
 	}
 
 	fmt.Printf("New task created: %s\n", titleTask)
