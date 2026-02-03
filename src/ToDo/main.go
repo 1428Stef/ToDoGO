@@ -11,15 +11,12 @@ func main() {
 		fmt.Println("Please enter 'help' for all commands.")
 		return
 	}
-
-	if menu[1] == "help" {
-		cmd.Help()
-		return
-	}
-
+	
 	switch menu[1] {
 	case "add":
 		cmd.Add(menu[2])
+	case "help":
+		cmd.Help()
 	default:
 		fmt.Printf("Unknown command: %s \n", menu[1])
 		os.Exit(1)
