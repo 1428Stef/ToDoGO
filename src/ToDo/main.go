@@ -4,24 +4,29 @@ import (
 	"ToDo/cmd"
 	"fmt"
 	"os"
+	"flag"
 )
 
 func main() {
-	menu := os.Args; if len(menu) < 2 {
+		addCmd := flag.NewFlagSet("add", flag.ExitOnError)
+		title := addCmd.String("title", "", " ")
+
+
+	if len(os.Args) < 2 {
 		fmt.Println("Please enter 'help' for all commands.")
 		return
 	}
 
-	switch menu[1] {
+	switch os.Args[1] {
 	case "add":
-		cmd.Add(menu[2])
+		addCmd.Parse(os.Args[2:])
+		cmd.Add(*title)
 	case "list":
 		cmd.List()
 	case "help":
 		cmd.Help()
 	default:
-		fmt.Printf("Unknown command: %s \n", menu[1])
+		fmt.Printf("Unknown command: %s \n", os.Args[1])
 		os.Exit(1)
 	}
-
 }
