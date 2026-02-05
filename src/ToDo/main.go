@@ -9,7 +9,10 @@ import (
 
 func main() {
 		addCmd := flag.NewFlagSet("add", flag.ExitOnError)
-		title := addCmd.String("title", "", " ")
+		title := addCmd.String("title", "", "")
+		if *title == "" {
+			os.Exit(1)
+		}
 
 
 	if len(os.Args) < 2 {
