@@ -34,6 +34,15 @@ func main() {
 		}
 
 		cmd.Done(*id)
+	case "del":
+		delCmd := flag.NewFlagSet("del", flag.ExitOnError)
+		id := delCmd.Int("id", 0, "")
+		delCmd.Parse(os.Args[2:])
+		if *id == 0 {
+			os.Exit(1)
+		}
+
+		cmd.Del(*id)
 	case "help":
 		cmd.Help()
 	default:
