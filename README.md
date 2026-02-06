@@ -1,25 +1,28 @@
-<img src="img.png">
+<img src="img.png" width="1000px">
 
 ## CLI-ToDo-GO 
 Command-line task manager with `json` persistence.
 
-### Installation and run
+### Features 
+- Persistent storage: Tasks saved in `storage.json`
+- ID-based operations: Easy task management
+- Cross-platform: Windows/Linux/Mac
 
-**download**:
+### Installation and run
 ```git 
 git clone https://github.com/1428Stef/CLI-ToDo-GO.git
-```
-
-**run**:
-```shell
 .\ToDO.exe 
 ```
+
 ### Usage
-```shell
+```bash
 ./ToDo.exe [command] [args]
 ```
 
-- `add -title "Task name"` - add a new task
-- `done -id` - mark task as completed (ID from list)
-- `list` - display all tasks
-- `del -id` - delete task (ID from list)
+### Commands 
+| Command | Argument           | Description                           |
+| ------- | ------------------ | ------------------------------------- |
+| add     | -title "Task name" | add a new task                        |
+| done    | -id                | mark task as completed (ID from list) |
+| list    | -                  | display all tasks                     |
+| del     | -id                | delete task (ID from list)            |
