@@ -6,14 +6,14 @@ import (
 )
 
 func Done(id int) error {
-	readJson, err := os.ReadFile("storage/storage.json")
+	readjson, err := os.ReadFile("storage/storage.json")
 	if err != nil {
 		return err
 	}
 
 	var tsk []Task
 
-	err = json.Unmarshal(readJson, &tsk)
+	err = json.Unmarshal(readjson, &tsk)
 	if err != nil {
 		return err
 	}

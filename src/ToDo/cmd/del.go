@@ -12,17 +12,17 @@ func Del(id int) error {
 		return err
 	}
 
-	var tasks []Task
+	var tsk []Task
 
-	if err := json.Unmarshal(readjson, &tasks); err != nil {
+	if err := json.Unmarshal(readjson, &tsk); err != nil {
 		return err
 	}
 
 	found := false
 
-	for i, t := range tasks {
+	for i, t := range tsk {
 		if t.ID == id {
-			tasks = append(tasks[:i], tasks[i+1:]...)
+			tsk = append(tsk[:i], tsk[i+1:]...)
 			found = true
 			break
 		}
@@ -32,7 +32,7 @@ func Del(id int) error {
 		return nil
 	}
 
-	newjson, err := json.MarshalIndent(tasks, "", "  ")
+	newjson, err := json.MarshalIndent(tsk, "", "  ")
 	if err != nil {
 		return err
 	}

@@ -25,18 +25,18 @@ func Add(titleTask string) error{
 		Date: formattedTime, 
 		ID: id.Generate(), 
 	}
-	var tasks []Task
+	var tsk []Task
 
-	data, err := os.ReadFile("storage/storage.json")
-	if err == nil && len(data) > 0 {
-		if err := json.Unmarshal(data, &tasks); err != nil {
+	readjson, err := os.ReadFile("storage/storage.json")
+	if err == nil && len(readjson) > 0 {
+		if err := json.Unmarshal(readjson, &tsk); err != nil {
 			return err
 		}
 	}
 
-	tasks = append(tasks, t)
+	tsk= append(tsk, t)
 
-	jsonMar, err := json.MarshalIndent(tasks, "", "  ")
+	jsonMar, err := json.MarshalIndent(tsk, "", "  ")
 	if err != nil {
 		return err
 	}
