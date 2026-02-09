@@ -45,6 +45,18 @@ func main() {
 		cmd.Del(*id)
 	case "help":
 		cmd.Help()
+	case "edit":
+		editCmd := flag.NewFlagSet("edit", flag.ExitOnError)
+		id := editCmd.Int("id", 0, "")
+		title := editCmd.String("title", "", "")
+		editCmd.Parse(os.Args[2:])
+		if *id == 0 {
+			os.Exit(1)
+		}
+		if *title == "" {
+			os.Exit(1)
+		}
+		cmd.Edit(*id, *title)
 	default:
 		fmt.Printf("Unknown command: %s \n", os.Args[1])
 		os.Exit(1)
