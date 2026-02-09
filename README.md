@@ -26,4 +26,4 @@ git clone https://github.com/1428Stef/CLI-ToDo-GO.git
 | done    | -id                | mark task as completed (ID from list) |
 | list    | -                  | display all tasks                     |
 | del     | -id                | delete task (ID from list)            |
-| edit    | -id -title "Taks name | changes the task title | 
+| edit    | -id -title "Taks name | changes the task title (ID form list)| 
