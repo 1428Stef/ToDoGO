@@ -1,11 +1,11 @@
 package cmd
 
 import (
-	"ToDo/id"
+	"ToDo/utilities/id"
+	"ToDo/utilities/date"
 	"encoding/json"
 	"fmt"
 	"os"
-	"time"
 )
 
 type Task struct {
@@ -16,13 +16,10 @@ type Task struct {
 }
 
 func Add(titleTask string) error{
-	nowTime := time.Now()
-	formattedTime := nowTime.Format("2006-01-02 15:04:05")
-
 	t := Task{
 		Title: titleTask,
 		Mark:  false,
-		Date: formattedTime, 
+		Date: date.GetTime(), 
 		ID: id.Generate(), 
 	}
 	var tsk []Task
