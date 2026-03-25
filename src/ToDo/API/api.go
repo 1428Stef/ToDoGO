@@ -8,6 +8,7 @@ import (
 
 func main() {
 	http.HandleFunc("/list", endpoint.ListHandler)
+	http.HandleFunc("/add", endpoint.AddHandler)
 
 	fmt.Println("Starting HTTP server!")
 	err := http.ListenAndServe(":9091", nil)
