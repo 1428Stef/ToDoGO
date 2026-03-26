@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"ToDo/utilities/storage"
 )
 
 func DoneHandler(w http.ResponseWriter, r *http.Request) {
@@ -26,7 +27,13 @@ func DoneHandler(w http.ResponseWriter, r *http.Request) {
         return
     }
 	
-	readjson, err := os.ReadFile("../storage/storage.json")
+	storageFile, err := storage.StorageFilePath()
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Error getting storage path: %v", err), http.StatusInternalServerError)
+		return
+	}
+
+	readjson, err := os.ReadFile(storageFile)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Error reading file: %v", err), http.StatusInternalServerError)
 		return
@@ -51,7 +58,7 @@ func DoneHandler(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    err = os.WriteFile("../storage/storage.json", updateJson, 0644)
+    err = os.WriteFile(storageFile, updateJson, 0644)
     if err != nil {
         http.Error(w, fmt.Sprintf("Error writing file: %v", err), http.StatusInternalServerError)
         return  

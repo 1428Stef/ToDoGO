@@ -3,11 +3,17 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
+	"ToDo/utilities/storage"
 	"os"
 )
 
 func List() error {
-	readjson, err := os.ReadFile("storage/storage.json")
+	storageFile, err := storage.StorageFilePath()
+	if err != nil {
+		return err
+	}
+
+	readjson, err := os.ReadFile(storageFile)
 	if err != nil {
 		return err
 	}

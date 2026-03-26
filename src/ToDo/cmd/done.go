@@ -2,11 +2,17 @@ package cmd
 
 import (
 	"encoding/json"
+	"ToDo/utilities/storage"
 	"os"
 )
 
 func Done(id int) error {
-	readjson, err := os.ReadFile("storage/storage.json")
+	storageFile, err := storage.StorageFilePath()
+	if err != nil {
+		return err
+	}
+
+	readjson, err := os.ReadFile(storageFile)
 	if err != nil {
 		return err
 	}
@@ -26,7 +32,7 @@ func Done(id int) error {
 			if err != nil {
 				return err
 			}
-			err = os.WriteFile("storage/storage.json", updateJson, 0644)
+			err = os.WriteFile(storageFile, updateJson, 0644)
 			if err != nil {
 				return err
 			}

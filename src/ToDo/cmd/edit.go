@@ -3,10 +3,16 @@ package cmd
 import (
 	"encoding/json"
 	"os"
+	"ToDo/utilities/storage"
 )
 
 func Edit(id int, newTitle string) error {
-	readjson, err := os.ReadFile("storage/storage.json")
+	storageFile, err := storage.StorageFilePath()
+	if err != nil {
+		return err
+	}
+
+	readjson, err := os.ReadFile(storageFile)
 	if err != nil {
 		return err
 	}
@@ -26,7 +32,7 @@ func Edit(id int, newTitle string) error {
 			if err != nil {
 				return err
 			}
-			err = os.WriteFile("storage/storage.json", updateJson, 0644)
+			err = os.WriteFile(storageFile, updateJson, 0644)
 			if err != nil {
 				return nil 
 			}

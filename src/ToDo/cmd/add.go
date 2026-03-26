@@ -3,6 +3,7 @@ package cmd
 import (
 	"ToDo/utilities/id"
 	"ToDo/utilities/date"
+	"ToDo/utilities/storage"
 	"encoding/json"
 	"fmt"
 	"os"
@@ -23,8 +24,12 @@ func Add(titleTask string) error{
 		ID: id.Generate(), 
 	}
 	var tsk []Task
+	storageFile, err := storage.StorageFilePath()
+	if err != nil {
+		return err
+	}
 
-	readjson, err := os.ReadFile("storage/storage.json")
+	readjson, err := os.ReadFile(storageFile)
 	if err == nil && len(readjson) > 0 {
 		if err := json.Unmarshal(readjson, &tsk); err != nil {
 			return err
@@ -38,7 +43,7 @@ func Add(titleTask string) error{
 		return err
 	}
 
-	if err := os.WriteFile("storage/storage.json", jsonMar, 0644); err != nil {
+	if err := os.WriteFile(storageFile, jsonMar, 0644); err != nil {
 		return err
 	}
 

@@ -8,6 +8,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"ToDo/utilities/storage"
 )
 
 type Task struct {
@@ -32,8 +33,14 @@ func AddHandler(w http.ResponseWriter, r *http.Request) {
 		ID: id.Generate(),
 	}
 	var tsk []Task 
-	
-	readjson, err := os.ReadFile("../storage/storage.json")
+
+	storageFile, err := storage.StorageFilePath()
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Error getting storage path: %v", err), http.StatusInternalServerError)
+		return
+	}
+
+	readjson, err := os.ReadFile(storageFile)
 	if err == nil && len(readjson) > 0 {
 		if err := json.Unmarshal(readjson, &tsk); err != nil {
 			http.Error(w, fmt.Sprintf("Error unmarshaling file: %v", err), http.StatusInternalServerError)
@@ -48,7 +55,7 @@ func AddHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := os.WriteFile("../storage/storage.json", jsonMar, 0644); err != nil {
+	if err := os.WriteFile(storageFile, jsonMar, 0644); err != nil {
 		http.Error(w, fmt.Sprintf("Error writing file: %v", err), http.StatusInternalServerError)
 		return
 	}

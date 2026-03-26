@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"ToDo/utilities/storage"
 )
 
 func DelHandler(w http.ResponseWriter, r *http.Request) {
@@ -23,9 +24,16 @@ func DelHandler(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.ParseInt(idStr, 10, 64)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Invalid ID: %v", err), http.StatusInternalServerError)
+		return
 	}
 
-	readjson, err := os.ReadFile("../storage/storage.json")
+	storageFile, err := storage.StorageFilePath()
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Error getting storage path: %v", err), http.StatusInternalServerError)
+		return
+	}
+
+	readjson, err := os.ReadFile(storageFile)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Error reading file: %v", err), http.StatusInternalServerError)
 		return
@@ -55,5 +63,5 @@ func DelHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, fmt.Sprintf("Failed to marshal: %v", err), http.StatusInternalServerError)
 	}
 
-	os.WriteFile("../storage/storage.json", updateJson, 0644)
+	os.WriteFile(storageFile, updateJson, 0644)
 }
