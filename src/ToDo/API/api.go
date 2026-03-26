@@ -9,6 +9,7 @@ import (
 func main() {
 	http.HandleFunc("/list", endpoint.ListHandler)
 	http.HandleFunc("/add", endpoint.AddHandler)
+	http.HandleFunc("/done", endpoint.DoneHandler)
 
 	fmt.Println("Starting HTTP server!")
 	err := http.ListenAndServe(":9091", nil)
