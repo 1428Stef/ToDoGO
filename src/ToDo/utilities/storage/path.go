@@ -1,11 +1,14 @@
 package storage
 
 import (
-	"path/filepath"
+    "os"
+    "path/filepath"
 )
 
-
 func StorageFilePath() (string, error) {
-	return filepath.Join("storage", "storage.json"), nil
+    root := os.Getenv("TODO_ROOT")
+    if root == "" {
+        root = "."
+    }
+    return filepath.Join(root, "storage", "storage.json"), nil
 }
-

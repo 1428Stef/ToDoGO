@@ -7,10 +7,10 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/list", endpoint.ListHandler)
-	http.HandleFunc("/add", endpoint.AddHandler)
-	http.HandleFunc("/done", endpoint.DoneHandler)
-	http.HandleFunc("/del", endpoint.DelHandler)
+	http.HandleFunc("/add", methodOnly(http.MethodPost, endpoint.AddHandler))
+	http.HandleFunc("/del", methodOnly(http.MethodDelete, endpoint.DelHandler))
+	http.HandleFunc("/done", methodOnly(http.MethodPatch, endpoint.DoneHandler))
+	http.HandleFunc("/list", methodOnly(http.MethodGet, endpoint.ListHandler))
 
 	fmt.Println("Starting HTTP server!")
 	err := http.ListenAndServe(":9091", nil)
