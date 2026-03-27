@@ -1,29 +1,58 @@
 <img src="img.png" width="1000px">
 
-## CLI-ToDo-GO 
-Command-line task manager with `json` persistence.
+# ToDoGO
+This is the best tool for controlling the gardens We organize daily projects, projects and people.
 
-### Features 
-- Persistent storage: Tasks saved in `storage.json`
-- ID-based operations: Easy task management
-- Cross-platform: Windows/Linux/Mac
+## Quick start 
 
-### Installation and run
-```git 
-git clone https://github.com/1428Stef/CLI-ToDo-GO.git
-.\ToDO.exe 
-```
-
-### Usage
+### 1. Installation 
 ```bash
-./ToDo.exe [command] [args]
+git clone https://github.com/1428Stef/ToDoGO.git
+cd ToDoGO/src/ToDo
+```
+### 2. Settings
+Create a `ToDoGO/src/ToDo/stotage/storage.json`:
+```json
+[
+  {
+    "title": "hello",
+    "mark": false,
+    "date": "2026-03-27 14:01:24",
+    "id": 912864339711
+  }
+]
+```
+### 3. Start 
+**CLI:** 
+```bash
+make run-cli ARGS="add -title hello"
 ```
 
-### Commands 
-| Command | Argument           | Description                           |
-| ------- | ------------------ | ------------------------------------- |
-| add     | -title "Task name" | add a new task                        |
-| done    | -id                | mark task as completed (ID from list) |
-| list    | -                  | display all tasks                     |
-| del     | -id                | delete task (ID from list)            |
-| edit    | -id -title "Taks name | changes the task title (ID form list)| 
+#### Commands
+
+| Command | Flag | Description |
+|---------|------|-------------|
+| `add`  | `--title` | Create a new task |
+| `list` | — | Show all tasks |
+| `done` | `--id` | Mark a task as completed |
+| `del`  | `--id` | Delete a task |
+| `edit` | `--id`, `--title` | Edit task title |
+| `help` | — | Show all commands |
+---
+**API-server:**
+```bash
+make run-api
+```
+**API:** `http://localhost:9091`
+
+#### Endpoints
+ 
+| Method | Endpoint | Body | Description |
+|--------|----------|------|-------------|
+| `GET`    | `/list` | — | Get all tasks (JSON) |
+| `POST`   | `/add`  | Task title (plain text) | Create a task |
+| `PATCH`  | `/done` | Task ID (plain text) | Mark as done |
+| `DELETE` | `/del`  | Task ID (plain text) | Delete a task |
+---
+**License:**
+MIT
