@@ -34,7 +34,7 @@ func Edit(id int, newTitle string) error {
 			}
 			err = os.WriteFile(storageFile, updateJson, 0644)
 			if err != nil {
-				return nil 
+				return err 
 			}
 			return nil
 		}
