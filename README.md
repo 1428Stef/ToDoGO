@@ -1,7 +1,7 @@
 <img src="img.png" width="1000px">
 
 # ToDoGO
-This is the best tool for controlling the gardens We organize daily projects, projects and people.
+Task management tool
 
 ## Quick start 
 
